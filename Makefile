@@ -7,7 +7,7 @@ CONF=Make.conf
 -include $(CONF)
 
 CC	= gcc 
-CFLAGS  = -O2 -Wall -D_GNU_SOURCE
+CFLAGS  = -O2 -Wall -D_GNU_SOURCE -DVERSION=\"$(shell cat VERSION)\"
 
 SOURCES	= main.c jpeg.c gif.c png.c bmp.c fb_display.c transforms.c
 OBJECTS	= ${SOURCES:.c=.o}

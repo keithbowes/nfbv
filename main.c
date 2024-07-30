@@ -482,6 +482,7 @@ int main(int argc, char **argv)
 	static struct option long_options[] =
 	{
 		{"help",	no_argument,	0, 'h'},
+		{"version",	no_argument,	0, 'v'},
 		{"noclear", 	no_argument, 	0, 'c'},
 		{"alpha", 	no_argument, 	0, 'a'},
 		{"unhide",  	no_argument, 	0, 'u'},
@@ -502,7 +503,7 @@ int main(int argc, char **argv)
 		return(1);
 	}
 	
-	while((c = getopt_long_only(argc, argv, "hcauifks:er", long_options, NULL)) != EOF)
+	while((c = getopt_long_only(argc, argv, "hvcauifks:er", long_options, NULL)) != EOF)
 	{
 		switch(c)
 		{
@@ -520,6 +521,9 @@ int main(int argc, char **argv)
 				break;
 			case 'h':
 				help(argv[0]);
+				return(0);
+			case 'v':
+				printf("%s\n", "fbv-" VERSION);
 				return(0);
 			case 'i':
 				opt_image_info = 0;
