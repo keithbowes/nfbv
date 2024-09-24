@@ -38,7 +38,8 @@ static int opt_clear = 1,
 	   opt_stretch = 0,
 	   opt_delay = 0,
 	   opt_enlarge = 0,
-	   opt_ignore_aspect = 0;
+	   opt_ignore_aspect = 0,
+	   opt_nocenter = 1;
 
 
 
@@ -309,12 +310,12 @@ identified:
 		}
 		if(refresh)
 		{
-			if(i.width < screen_width)
+			if((i.width < screen_width) && opt_nocenter)
 				x_offs = (screen_width - i.width) / 2;
 			else
 				x_offs = 0;
 			
-			if(i.height < screen_height)
+			if((i.height < screen_height) && opt_nocenter)
 				y_offs = (screen_height - i.height) / 2;
 			else
 				y_offs = 0;
@@ -444,8 +445,9 @@ void help(char *name)
 		   "Available options:\n"
 		   " --help        | -h : Show this help\n"
 		   " --alpha       | -a : Use the alpha channel (if applicable)\n"
-		   " --dontclear   | -c : Do not clear the screen before and after displaying the image\n"
-		   " --donthide    | -u : Do not hide the cursor before and after displaying the image\n"
+		   " --noclear     | -c : Do not clear the screen before and after displaying the image\n"
+		   " --unhide      | -u : Do not hide the cursor before and after displaying the image\n"
+		   " --nocenter    | -z : Do not center image on the screen (useful with  -c and -i)\n"
 		   " --noinfo      | -i : Supress image information\n"
 		   " --stretch     | -f : Strech (using a simple resizing routine) the image to fit onto screen if necessary\n"
 		   " --colorstretch| -k : Strech (using a 'color average' resizing routine) the image to fit onto screen if necessary\n"
@@ -486,6 +488,7 @@ int main(int argc, char **argv)
 		{"noclear", 	no_argument, 	0, 'c'},
 		{"alpha", 	no_argument, 	0, 'a'},
 		{"unhide",  	no_argument, 	0, 'u'},
+		{"nocenter",  	no_argument, 	0, 'z'},
 		{"noinfo",  	no_argument, 	0, 'i'},
 		{"stretch", 	no_argument, 	0, 'f'},
 		{"colorstrech", no_argument, 	0, 'k'},
@@ -503,7 +506,7 @@ int main(int argc, char **argv)
 		return(1);
 	}
 	
-	while((c = getopt_long_only(argc, argv, "hvcauifks:er", long_options, NULL)) != EOF)
+	while((c = getopt_long_only(argc, argv, "hvcauifks:erz", long_options, NULL)) != EOF)
 	{
 		switch(c)
 		{
@@ -539,6 +542,9 @@ int main(int argc, char **argv)
 				break;
 			case 'r':
 				opt_ignore_aspect = 1;
+				break;
+			case 'z':
+				opt_nocenter = 0;
 				break;
 		}
 	}

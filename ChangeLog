@@ -1,3 +1,6 @@
+	2003-10-19	Pawe³ ¯urowski	pzurowski@post.pl
+      * added --nocenter option: image won't be in center of the screen. Useful with -c and -i options. Based on contributed patch from fbgetty
+      
 0.99    2003-08-24      Mateusz Golicz mtg@elsat.net.pl
       * fixes in transparent and interlaced GIF & PNG support
       * support for using the alpha channel
