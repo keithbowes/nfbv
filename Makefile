@@ -7,13 +7,13 @@ CONF=Make.conf
 -include $(CONF)
 
 CC	= gcc 
-CFLAGS  = -O2 -Wall -D_GNU_SOURCE -DVERSION=\"$(shell cat VERSION)\"
+CFLAGS  = -O2 -Wall -D_GNU_SOURCE -DVERSION=\"$(shell cat VERSION)\" -fPIC
 
 SOURCES	= main.c jpeg.c gif.c png.c bmp.c fb_display.c transforms.c
 OBJECTS	= ${SOURCES:.c=.o}
 
 OUT	= fbv
-#LIBS	= -lungif -L/usr/X11R6/lib -ljpeg -lpng
+LIBS	= -lgif $(shell pkg-config --libs libjpeg) $(shell pkg-config --libs libpng)
 
 all: $(OUT)
 	@echo Build DONE.
